@@ -1,0 +1,68 @@
+LESSON 2: Row Context vs Filter Context (the heart of DAX)
+
+🧠 ROW CONTEXT
+
+Row context = DAX looks at one row at a time.
+
+This exists in:
+
+✔ Calculated Columns
+✔ Iterators (SUMX, AVERAGEX, FILTER etc.)
+
+Example (calculated column):
+
+Profit = Sales[SalesAmount] - Sales[Cost]
+
+
+DAX goes row by row:
+
+Amount	Cost	Profit
+200	150	50
+300	200	100
+500	300	200
+
+That is row context.
+
+🎯 FILTER CONTEXT
+
+Filter context = filters coming from:
+
+✔ slicers
+✔ visual
+✔ page filters
+✔ report filters
+✔ CALCULATE()
+
+Example:
+
+Total Revenue = SUM(Sales[SalesAmount])
+
+
+If the user selects:
+
+Product = “A”
+
+Region = “India”
+
+Year = 2023
+
+The measure will only sum those rows.
+
+That's filter context.
+
+🌟 Why CALCULATE() is god-level?
+
+Because CALCULATE changes filter context.
+
+Example:
+
+Total Revenue All Products =
+CALCULATE(
+    SUM(Sales[SalesAmount]),
+    ALL(Sales[Product])
+)
+
+This removes the product filter.
+# calculate  - is overpowering on filters applied
+
+
