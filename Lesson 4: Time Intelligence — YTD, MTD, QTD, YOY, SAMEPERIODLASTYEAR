@@ -1,0 +1,98 @@
+Lesson 4: Time Intelligence — YTD, MTD, QTD, YOY, SAMEPERIODLASTYEAR
+
+✅ Step 1 — Create a Date Table Using DAX
+
+Go to:
+
+Modeling → New Table
+
+Paste this DAX:
+
+DateTable =
+ADDCOLUMNS (
+    CALENDAR ( DATE(2018,1,1), DATE(2030,12,31) ),
+    "Year", YEAR ( [Date] ),
+    "MonthNumber", MONTH ( [Date] ),
+    "Month", FORMAT ( [Date], "MMM" ),
+    "Quarter", "Q" & FORMAT ( [Date], "Q" ),
+    "YearMonth", FORMAT ( [Date], "YYYY-MM" )
+)
+
+What this gives you:
+
+Full date range
+
+Year
+
+Month
+
+Month name
+
+Quarter
+
+Year-Month (for sorting visuals)
+
+⚠️ Very important: Mark this as Date Table
+
+Go to:
+
+Table Tools → Mark as Date Table → Choose [Date] column
+
+This step is CRITICAL.
+Time intelligence will not work otherwise.
+
+⭐ Step 2 — Create a Relationship
+
+Connect:
+
+DateTable[Date] → Sales[Date]
+
+Relationship type:
+
+Single direction (Date → Sales)
+
+1 to Many
+
+🎉 Now you're ready for TIME INTELLIGENCE
+⭐ LESSON 4 — PART 2: YTD, QTD, MTD, YOY
+
+Assume you already have:
+
+Total Sales = SUM(Sales[Amount])
+
+✔ 1. Year-to-Date (YTD)
+Sales YTD =
+TOTALYTD(
+    [Total Sales],
+    DateTable[Date]
+)
+
+✔ 2. Month-to-Date (MTD)
+Sales MTD =
+TOTALMTD(
+    [Total Sales],
+    DateTable[Date]
+)
+
+✔ 3. Quarter-to-Date (QTD)
+Sales QTD =
+TOTALQTD(
+    [Total Sales],
+    DateTable[Date]
+)
+
+✔ 4. Year-over-Year (YOY) Growth
+Step 1 — get last year sales:
+Sales LY =
+CALCULATE(
+    [Total Sales],
+    SAMEPERIODLASTYEAR( DateTable[Date] )
+)
+
+Step 2 — growth amount:
+YOY Growth =
+[Total Sales] - [Sales LY]
+
+Step 3 — growth percentage:
+YOY Growth % =
+DIVIDE( [YOY Growth], [Sales LY] )
