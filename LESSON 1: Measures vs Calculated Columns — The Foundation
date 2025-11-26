@@ -28,12 +28,18 @@ Used for:
 
 Example:
 Total Sales = SUM(Sales[SalesAmount])
-
-
 This changes depending on which:
 
 Month is selected
-
 Region is selected
-
 Product is selected
+
+
+
+# Example of MEasure
+total_revenue = sum(Sales[SalesAmount])
+
+# calculate is unnecesary , only needed when you want to change filter context.
+
+# Example of calculated column
+Revenueperunit = Sales[SalesAmount] / Sales[Qty]
