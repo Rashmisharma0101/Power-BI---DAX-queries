@@ -96,3 +96,60 @@ YOY Growth =
 Step 3 — growth percentage:
 YOY Growth % =
 DIVIDE( [YOY Growth], [Sales LY] )
+
+
+LESSON 4 — PART 2: YTD, QTD, MTD, YOY
+
+Assume you already have:
+
+Total Sales = SUM(Sales[Amount])
+
+✔ 1. Year-to-Date (YTD)
+Sales YTD =
+TOTALYTD(
+    [Total Sales],
+    DateTable[Date]
+)
+
+✔ 2. Month-to-Date (MTD)
+Sales MTD =
+TOTALMTD(
+    [Total Sales],
+    DateTable[Date]
+)
+
+✔ 3. Quarter-to-Date (QTD)
+Sales QTD =
+TOTALQTD(
+    [Total Sales],
+    DateTable[Date]
+)
+
+✔ 4. Year-over-Year (YOY) Growth
+Step 1 — get last year sales:
+Sales LY =
+CALCULATE(
+    [Total Sales],
+    SAMEPERIODLASTYEAR( DateTable[Date] )
+)
+
+Step 2 — growth amount:
+YOY Growth =
+[Total Sales] - [Sales LY]
+
+Step 3 — growth percentage:
+YOY Growth % =
+DIVIDE( [YOY Growth], [Sales LY] )
+
+📌 Mini Exercise (Time Intelligence)
+
+Write DAX for:
+
+Sales for last 3 months
+(Hint: use DATEADD)
+
+Sales for previous quarter
+(Hint: DATEADD with -1 quarter)
+
+Sales for current year but excluding current month
+(Hint: FILTER + MONTH)
