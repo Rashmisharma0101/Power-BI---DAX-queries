@@ -1,0 +1,67 @@
+LESSON 3: Mastering CALCULATE() — The Brain of DAX
+
+✅ 1. Basic CALCULATE Syntax
+CALCULATE(
+    <expression>,
+    <filters>
+)
+
+
+Example:
+
+Sales_India =
+CALCULATE(
+    SUM(Sales[Amount]),
+    Sales[Country] = "India"
+)
+
+✅ 2. CALCULATE is the ONLY function that can change filter context
+
+CALCULATE can:
+
+✔ Apply a filter
+Sales_2023 =
+CALCULATE( SUM(Sales[Amount]), Sales[Year] = 2023 )
+
+✔ Remove a filter
+Sales_All_Products =
+CALCULATE( SUM(Sales[Amount]), ALL(Sales[Product]) )
+
+✔ Replace a filter
+Sales_Only_A =
+CALCULATE( SUM(Sales[Amount]), Product[Name] = "A" )
+
+✔ Add multiple filters
+Sales_India_2023 =
+CALCULATE(
+    SUM(Sales[Amount]),
+    Sales[Country] = "India",
+    Sales[Year] = 2023
+)
+
+⭐ VERY IMPORTANT:
+CALCULATE + ALL
+
+Used to remove filters and compute totals/percentages.
+
+Total Sales (Ignore Filters) =
+CALCULATE(
+    SUM(Sales[Amount]),
+    ALL(Sales)
+)
+
+⭐ CALCULATE + FILTER
+
+Used for advanced logics.
+
+High Value Customers =
+CALCULATE(
+    SUM(Sales[Amount]),
+    FILTER(Sales, Sales[Amount] > 5000)
+)
+
+⭐ CALCULATE + VALUES
+
+Used for dynamic comparisons.
+
+Example: Sales for selected product’s category.
