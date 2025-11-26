@@ -1,0 +1,39 @@
+LESSON 1: Measures vs Calculated Columns — The Foundation
+
+📌 What is a Calculated Column?
+
+Calculated row by row
+
+Stored in the model
+
+Used for categories, slicers, grouping
+
+Example:
+Age Category =
+IF( Employees[Age] > 40, "Senior", "Junior" )
+
+
+This will evaluate each row and store the result permanently.
+
+📌 What is a Measure?
+
+Calculated on the fly
+
+Not stored
+
+Used for:
+✔ Aggregations
+✔ KPIs
+✔ Calculations depending on filters in visuals
+
+Example:
+Total Sales = SUM(Sales[SalesAmount])
+
+
+This changes depending on which:
+
+Month is selected
+
+Region is selected
+
+Product is selected
