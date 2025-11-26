@@ -68,11 +68,12 @@ Exercise:
 Write DAX for the following:
 
 1. Sales for year 2024
-sales_2024 = calculate(sum(sales[amount]), filter(sales, sales[year] = 2024))
+sales_2024 = calculate(sum(sales[amount]), sales[year] = 2024)
+# Since you are filtering by a single column, can avoid writing FILTER
 
 2. Total Sales ignoring all filters
-
+sales = calculate(sum(sales[amount]), all(Sales))
 (Hint: use ALL)
 
 3. Sales for orders where Quantity > 5
-
+sales_5 = calculate(sum(sales[amount]), filter(sales, sales[qty] > 5))
