@@ -64,5 +64,15 @@ CALCULATE(
 
 This removes the product filter.
 # calculate  - is overpowering on filters applied
+Exercise:
+Write DAX for the following:
 
+1. Sales for year 2024
+sales_2024 = calculate(sum(sales[amount]), filter(sales, sales[year] = 2024))
+
+2. Total Sales ignoring all filters
+
+(Hint: use ALL)
+
+3. Sales for orders where Quantity > 5
 
