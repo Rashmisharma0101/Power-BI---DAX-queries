@@ -102,8 +102,26 @@ CALCULATE( [Total Sales], ALL(Product) )
 
 ⭐ Summary (Simple Memory Chart)
 Function	What It Does
-FILTER	Applies row-by-row condition inside CALCULATE
-ALL	Removes filters (selected columns or whole table)
-ALLEXCEPT	Removes all filters except the ones you keep
-VALUES	Gets distinct values in the current filter
+FILTER	- Applies row-by-row condition inside CALCULATE
+ALL	- Removes filters (selected columns or whole table)
+ALLEXCEPT - Removes all filters except the ones you keep
+VALUES - Gets distinct values in the current filter
 
+1. Percentage of Sales within its Category
+newmeasure = divide(sum(sales[amount]), calculate(sum(sales[amount]), allexcept(sales, sales[product])))
+
+2. Sales ignoring only Region filters
+newmeasure = calculate(sum(sales[amount]), all(sales[region])
+(Hint: ALL with column)
+
+3. Sales for products that are above average sales
+newmeasure = calculate(sum(sales[amount]), filter(all(sales), sales, sales[amount] > avg(sales[amount]]))
+(Hint: FILTER + AVERAGE)
+explanation 
+Important Points
+
+We use ALL(Sales) inside FILTER
+Because if we filter only the current context, average will break.
+
+Sales[Amount] > AVERAGE(Sales[Amount])
+Compares each product's sale with the overall average amount.
