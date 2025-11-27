@@ -1,0 +1,109 @@
+LESSON 5: FILTER, ALL, ALLEXCEPT, VALUES — The Most Powerful DAX Functions
+
+🔶 1. FILTER() — apply a row-by-row condition on a table
+✔ Syntax
+FILTER( TableName, Condition )
+
+✔ Example
+
+Sales where Quantity > 5:
+
+CALCULATE(
+    SUM(Sales[Amount]),
+    FILTER(Sales, Sales[Qty] > 5)
+)
+
+⭐ Key idea:
+
+FILTER creates row context, then CALCULATE turns it into filter context.
+
+This is how you write ALL complex logic.
+
+🔷 2. ALL() — remove filters from a table or column
+
+This is essential for:
+
+percentage of total
+
+showing totals in visuals
+
+removing slicer and visual filters
+
+✔ Remove all filters from Sales table:
+ALL(Sales)
+
+✔ Remove only Product filter:
+ALL(Sales[Product])
+
+❗ Important:
+
+ALL(Sales) removes every filter
+ALL(Sales[Product]) removes only product filter
+
+📌 Example: Percentage of Total Sales (classic interview question)
+% of Total Sales =
+DIVIDE(
+    [Total Sales],
+    CALCULATE( [Total Sales], ALL(Sales) )
+)
+
+🔶 3. ALLEXCEPT() — remove all filters EXCEPT those you want to keep
+✔ Syntax
+ALLEXCEPT( Table, Column1, Column2 )
+
+What it does:
+
+Removes all filters EXCEPT specific columns.
+
+📌 Example: Keep Product but ignore all other filters:
+Sales_Within_Product =
+CALCULATE(
+    [Total Sales],
+    ALLEXCEPT( Sales, Sales[Product] )
+)
+
+👉 When useful?
+
+Running totals by product
+
+Percent of product total
+
+Product-level normalization
+
+Category-level comparisons
+
+🔷 4. VALUES() — returns the distinct value(s) in current filter context
+✔ Syntax
+VALUES(Column)
+
+
+If the filter context = one product
+→ it returns a single value.
+If multiple products selected
+→ it returns a table of values.
+
+📌 Example: Get selected Product’s category
+Selected_Category =
+CALCULATE(
+    SELECTEDVALUE( Product[Category] ),
+    VALUES(Product[Category])
+)
+
+
+(But SELECTEDVALUE is usually simpler)
+
+📌 Example: Dynamic measure comparison
+
+Compare selected product sales to all other products:
+
+Product_vs_All =
+[Total Sales] -
+CALCULATE( [Total Sales], ALL(Product) )
+
+⭐ Summary (Simple Memory Chart)
+Function	What It Does
+FILTER	Applies row-by-row condition inside CALCULATE
+ALL	Removes filters (selected columns or whole table)
+ALLEXCEPT	Removes all filters except the ones you keep
+VALUES	Gets distinct values in the current filter
+
