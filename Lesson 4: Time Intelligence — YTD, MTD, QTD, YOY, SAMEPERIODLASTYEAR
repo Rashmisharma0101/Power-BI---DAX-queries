@@ -145,11 +145,20 @@ DIVIDE( [YOY Growth], [Sales LY] )
 
 Write DAX for:
 
-Sales for last 3 months
-(Hint: use DATEADD)
+1. Sales for last 3 months
+total_sales  = sum(sales[amount])
+sales_last_3_months = Calculate([total_sales], Dateadd(datetable[Date], -3, month ))
+
+Explanation:
+
+DATEADD(..., -3, MONTH) shifts the current date context back by 3 months.
+So if user selects June 2024, it returns sales for:
+March
+April
+May
+
 
 Sales for previous quarter
 (Hint: DATEADD with -1 quarter)
-
 Sales for current year but excluding current month
 (Hint: FILTER + MONTH)
