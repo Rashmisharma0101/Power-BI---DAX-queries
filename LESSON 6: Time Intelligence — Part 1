@@ -125,5 +125,30 @@ CALCULATE(
 ✔ DATESINPERIOD creates rolling windows
 ✔ FILTER+ALL can create custom time intelligence
 
+Practice questions:
+1. Sales for the same month last year.
+measure = calculate(sum(sales[amount]),dateadd(datetable[date] , -1, year))
+
+2. Sales for the immediately previous month.
+measure = calculate(sum(sales[amount]), dateadd(datetable[date], -1, month))
+
+3. Sales for the quarter immediately before the current quarter.
+measure = calculate(sum(sales[amount]), dateadd(datetable[date], -1, quarter))
+
+4. Sales Last 3 Months
+measure = calculate(sum(sales[amount]), DATESINPERIOD(datetable[Date], MAX(datetable[Date]), -3, MONTH))
+
+5. Rolling 6 Months Sales
+measure = calculate(sum(sales[amount]), datesinperiod(datetable[date], max(datetable[date]), -6, month))
+
+6. Sales from Jan 1 of the current year up to today
+measure = calculate(sum(sales[amount]), totalytd(datetable[date], today()))
+
+7. YTD Sales but remove current month’s sales.
 
 
+
+9. 
+
+10. Compute number of active customers in last 90 days.
+calculate(distinctcount(customer_id), datesinperiod(datetable[date], max(datetable[date], -90, day)))
