@@ -158,7 +158,11 @@ April
 May
 
 
-Sales for previous quarter
-(Hint: DATEADD with -1 quarter)
-Sales for current year but excluding current month
-(Hint: FILTER + MONTH)
+2. Sales for previous quarter
+sales_prev_quarter = calculate([total_sales], dateadd(datetable[date], -1, quarter))
+
+3. Sales for current year but excluding current month
+sales = sum(sales[amount], filter(all(Datetable), datetable(year) = year(today()) &&
+datetable[MonthNumber] < Month(Today())
+)
+)
