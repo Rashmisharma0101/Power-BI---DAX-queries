@@ -15,3 +15,115 @@ CALCULATE(
         MONTH
     )
 )
+
+🟦 1. DATEADD — The Core of Time Intelligence
+
+DATEADD shifts dates forward/backward in a date column.
+
+Syntax:
+DATEADD(Date[Date], -1, YEAR)
+DATEADD(Date[Date], -1, MONTH)
+DATEADD(Date[Date], -3, MONTH)
+DATEADD(Date[Date], -1, QUARTER)
+
+🟩 2. Sales Last Year (YoY)
+Sales_Last_Year =
+CALCULATE(
+    [Total Sales],
+    DATEADD('Date'[Date], -1, YEAR)
+)
+
+Explanation:
+
+DATEADD shifts the entire date context 1 year back
+
+CALCULATE returns sales for shifted dates
+
+🟧 3. Sales for Previous Month
+Sales_Previous_Month =
+CALCULATE(
+    [Total Sales],
+    DATEADD('Date'[Date], -1, MONTH)
+)
+
+Example:
+
+If the current context is March 2024
+DATEADD → shifts to February 2024
+
+🟪 4. Sales for Last 3 Months (Rolling 3 Months)
+Sales_Last_3_Months =
+CALCULATE(
+    [Total Sales],
+    DATEADD('Date'[Date], -3, MONTH)
+)
+
+
+Important:
+This shifts the window back 3 months, not sum of 3 individual months (that is rolling).
+
+If you want rolling 3 months (current + last 2 months):
+
+Rolling_3_Months =
+CALCULATE(
+    [Total Sales],
+    DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -3, MONTH)
+)
+
+🟥 5. Sales for Previous Quarter
+Sales_Previous_Quarter =
+CALCULATE(
+    [Total Sales],
+    DATEADD('Date'[Date], -1, QUARTER)
+)
+
+🟨 6. Sales for Current Year but Excluding Current Month
+
+Very common interview question.
+
+Sales_YTD_Excluding_Current_Month =
+CALCULATE(
+    [Total Sales],
+    FILTER(
+        ALL('Date'),
+        'Date'[Year] = YEAR(TODAY())
+            && 'Date'[Month] < MONTH(TODAY())
+    )
+)
+
+What this does:
+
+ALL('Date') → remove all date filters
+
+Filter only dates:
+
+year = current year
+
+month < current month
+
+🟫 7. SAMEPERIODLASTYEAR (Alternative YoY)
+Sales_LY =
+CALCULATE(
+    [Total Sales],
+    SAMEPERIODLASTYEAR('Date'[Date])
+)
+
+
+Same output as DATEADD(-1 YEAR).
+
+🟩 8. PREVIOUSMONTH Shortcut
+Sales_PM =
+CALCULATE(
+    [Total Sales],
+    PREVIOUSMONTH('Date'[Date])
+)
+
+⭐ At This Stage You Should Know:
+
+✔ DATEADD shifts dates
+✔ PREVIOUSMONTH, SAMEPERIODLASTYEAR are shortcuts
+✔ DATESINPERIOD creates rolling windows
+✔ FILTER+ALL can create custom time intelligence
+
+
+
