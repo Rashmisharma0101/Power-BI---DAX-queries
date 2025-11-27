@@ -1,3 +1,17 @@
 LESSON 6: Time Intelligence — Part 1
 (DATEADD, SAMEPERIODLASTYEAR, PREVIOUSMONTH, LASTN Periods)
 
+DATEADD(-3 MONTH) → only the month exactly 3 months back (e.g., April → January)
+
+DATESINPERIOD(-3 MONTH) → last 3 months window combined (e.g., Apr+Mar+Feb)
+
+Rolling_3_Months =
+CALCULATE(
+    [Total Sales],
+    DATESINPERIOD(
+        'Date'[Date],
+        MAX('Date'[Date]),   -- current date context (April)
+        -3,
+        MONTH
+    )
+)
