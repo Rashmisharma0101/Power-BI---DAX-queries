@@ -167,3 +167,85 @@ measure = divide([ty] - [ly], [ly])
 
 10. Compute number of active customers in last 90 days.
 calculate(distinctcount(sales[customer_id]), datesinperiod(datetable[date], max(datetable[date], -90, day)))
+
+✅ What DAX actually does
+
+DAX only applies filters that come from the visual.
+
+If your table visual shows:
+
+Year	Total Sales
+2083	…
+2084	…
+2085	…
+
+Then for each row, Power BI automatically applies:
+
+For the 2083 row → Year = 2083
+
+For the 2084 row → Year = 2084
+
+For the 2085 row → Year = 2085
+
+👉 This filter comes from the row of the visual, NOT from “today’s date.”
+
+❌ What DAX does NOT do
+
+DAX does NOT think:
+
+"Hmm… calendar year is 2085. Let me automatically filter to 2085."
+
+No, it never does that.
+
+It only follows what the visual (or slicer) tells it.
+
+⭐ Let me break it down clearly
+Case 1 → You place Year on rows of a table visual
+
+DAX applies filters automatically for each row:
+
+Row “2083” → filter context = Year 2083
+
+Row “2084” → filter context = Year 2084
+
+Row “2085” → filter context = Year 2085
+
+So [Total Sales] becomes:
+
+SUM of sales where Year = <row value>
+
+
+That’s why you don’t need to manually filter “[Sales_TY]”.
+
+Case 2 → Your visual has NO year, just showing a card:
+
+Card → Total Sales
+
+This card has no Year filter, so [Total Sales] returns sum of the entire table.
+
+DAX will NOT guess the latest year.
+
+🔥 So when does [Sales_TY] work correctly?
+
+Sales_TY = [Total Sales]
+
+works only when the visual already filters a specific time period.
+
+Example:
+
+You put Year on a matrix:
+
+Year	Sales TY
+2083	120,000
+2084	140,000
+2085	160,000
+
+Each row gives [Sales_TY] the filter for that year.
+
+You didn't write the filter —
+the visual applied it.
+
+✔️ Easy Thumb Rule
+DAX never decides the year.
+The visual decides the year.
+DAX only answers inside the filter context given by the visual.
