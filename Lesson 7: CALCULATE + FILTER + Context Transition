@@ -1,0 +1,76 @@
+Lesson 7: CALCULATE + FILTER + Context Transition
+
+Now your example:
+❓ Test = CALCULATE(SUM(Sales[Amount]))
+
+If you put this inside a visual, or evaluate the measure normally:
+
+➤ What is the result?
+
+It returns exactly the same value as:
+
+Total Sales = SUM(Sales[Amount])
+
+
+Why?
+Because in a measure, there is NO row context, only filter context.
+
+So CALCULATE() has no row context to convert → no context transition happens → it behaves normally.
+
+BUT — If you use this inside a CALCULATED COLUMN:
+
+Example:
+
+Test = CALCULATE( SUM(Sales[Amount]) )
+
+
+Imagine this table:
+
+Product	Amount
+A	100
+A	200
+B	300
+For row 1 (Product A, Amount 100)
+
+Row context = A
+CALCULATE applies context transition → Converts this row into filters:
+
+Product = A
+Amount = 100
+
+
+Then this is executed:
+
+SUM(Sales[Amount]) WHERE Product='A'
+
+
+So instead of returning 100, it returns:
+
+100 + 200 = 300
+
+Each row A will return 300.
+Each row B will return 300.
+
+So your column will be:
+
+Product	Amount	Test
+A	100	300
+A	200	300
+B	300	300
+⭐ KEY RULE
+
+CALCULATE in a measure = NO context transition.
+CALCULATE in a calculated column = YES context transition.
+
+📌 Why this happens?
+
+Because:
+
+Measures have filter context only
+
+Calculated columns have row context
+
+CALCULATE = “convert row context → filter context”
+
+This is the engine of DAX.
+When you use CALCULATE inside a Row Context, DAX automatically converts that row context into a filter context.
