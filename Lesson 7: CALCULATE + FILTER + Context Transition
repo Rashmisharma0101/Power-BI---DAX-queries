@@ -6,26 +6,15 @@ Now your example:
 If you put this inside a visual, or evaluate the measure normally:
 
 ➤ What is the result?
-
 It returns exactly the same value as:
-
 Total Sales = SUM(Sales[Amount])
-
-
 Why?
 Because in a measure, there is NO row context, only filter context.
-
 So CALCULATE() has no row context to convert → no context transition happens → it behaves normally.
-
-BUT — If you use this inside a CALCULATED COLUMN:
-
+BT — If you use this inside a CALCULATED COLUMN:
 Example:
-
 Test = CALCULATE( SUM(Sales[Amount]) )
-
-
 Imagine this table:
-
 Product	Amount
 A	100
 A	200
@@ -74,3 +63,18 @@ CALCULATE = “convert row context → filter context”
 
 This is the engine of DAX.
 When you use CALCULATE inside a Row Context, DAX automatically converts that row context into a filter context.
+
+
+1. A 650
+B 200
+C 150
+
+2. sales_by_customer = calculate(sum[sales[amount]))
+
+3. Total Sales for Orders Above Quantity 10
+calculate(sum(sales[amount]), filter(sales, sales[qty] > 10))
+
+4. Sales of a Selected Product Only
+calculate(sum(sales[amount]), filter
+
+
