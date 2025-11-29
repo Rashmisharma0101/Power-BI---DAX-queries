@@ -15,3 +15,51 @@ Return only top 10 rows.
 
 Practice Questions
 
+1. Top 5 Products by Sales
+
+topn(5,  summarize(product, product[productid],product[name], "calcol", sum(sales[amount])), [calcol],desc)
+
+alternate way 
+Sales_Top5Products_Total =
+VAR Top5 =
+  TOPN(
+    5,
+    SUMMARIZE( Product, Product[ProductID], "ProdSales", CALCULATE(SUM(Sales[Amount])) ),
+    [ProdSales],
+    DESC
+  )
+RETURN
+CALCULATE( SUM(Sales[Amount]), KEEPFILTERS(Top5) )
+-------------------------------------------------------------------------------
+
+2. Top 10 Customers Table
+topn(10, summarize(sales, sales[customerid], "calcol", sum(sales[amount])), [calcol], desc)
+
+3. Rank Customers based onn sales
+=calculate(sum(Sales[amount]), filter(sales[customerid]), rankx(sales[customerid], calculate(sum(sales[amount])), desc,dense)
+
+4.
+
+5. Bottom 5 Customers By Sales
+topn(5, summarize(sales, sales[customerid], "calcol", sum(sales[amount])), [calcol], asc)
+
+6. Sales of Top 3 Products Only
+=calculate(sum(sales[amount]), topn(3, summarize(sales, sales[productid], "calcol", sum(sales[amount])), [calcol], decs)
+
+7. 
+
+8. Create a table of top 5 sales per Region
+topn(5, summarize(sales, sales[Region], "calcol", sum(sales[amount])), [calcol], desc)
+
+9. Sales of Customers Whose Rank ≤ 20
+=calculate(sum(sales[amount]), filter(values(sales[customerid]), rankx(all(sales[customerid]),calculate(sum(sales[amount])),
+desc, dense) <=20))
+
+10. 
+
+
+Quick rules to remember before code
+TOPN returns a table of rows. Use it inside visuals (New Table) or inside CALCULATE()/FILTER() to apply that table as a filter.
+SUMMARIZE groups rows (like SQL GROUP BY) and can add calculated columns (aliases).
+CALCULATE accepts table filters (like the table returned by TOPN) and applies them as filter context.
+Measure vs table: some DAX expressions return tables (for visuals or new tables) and some return scalar measures (for cards/values). I’ll show both where useful.
