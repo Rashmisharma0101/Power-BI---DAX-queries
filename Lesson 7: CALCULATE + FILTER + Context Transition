@@ -166,7 +166,8 @@ This is Context Transition.
 = calculate(distinctcount(sales[customerid]), filter(values(sales[customerid]),
 calculate(countrows(sales), datesinperiod(datetable[date], max(datetable[date]), -60, day)) = 0 ))
 
-
+8. Sales for Products with Above Average Sales
+=calculate(sum(sales[product]), filter(sales, sales[amount]>calculate(avg(sales[amount]))))
 
 
 
