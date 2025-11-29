@@ -101,5 +101,34 @@ TOPN(
     [CustSales], DESC
 )
 
+4. Customers Who Bought More Than 3 Times
+calculate(sum(sales[amount]), filter(values(sales[amount]), calculate(countrows(sales))>3))
+
+Frequent_Customers_Sales =
+VAR CustomersWithMoreThan3 =
+    FILTER (
+        VALUES ( Sales[CustomerID] ),
+        CALCULATE ( COUNTROWS ( Sales ) ) > 3
+    )
+RETURN
+CALCULATE (
+    SUM ( Sales[Amount] ),
+    CustomersWithMoreThan3
+)
+
+
+Technical :
+VALUES(column) returns a one-column table containing each distinct value for that column in the current filter context.
+VALUES(table) returns the distinct rows of the table.
+
+5. Sales for the Current Row's Product (Context Transition)
+
+
+
+
+
+
+
+
 
 
