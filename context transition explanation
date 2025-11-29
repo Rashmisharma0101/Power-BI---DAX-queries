@@ -1,0 +1,32 @@
+Explanation
+What is the current row?
+
+If table visual is:
+
+| Product: A |
+| Product: B |
+
+Each row has an existing filter:
+
+Row 1 → Product = A
+Row 2 → Product = B
+
+Inside the row:
+
+CALCULATE enforces context transition.
+
+So the measure becomes:
+
+Row 1 → SUM(Sales Amount WHERE Product=A)
+Row 2 → SUM(Sales Amount WHERE Product=B)
+
+🎯 Learning
+
+Even though we wrote only:
+
+CALCULATE(SUM(Sales[Amount]))
+
+
+CALCULATE automatically reads the current values of columns in that row and converts them into filters.
+
+This is Context Transition.
