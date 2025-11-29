@@ -1,0 +1,17 @@
+LESSON 8 — TOPN, RANKX, SUMMARIZE
+
+PART 1 — SUMMARIZE (SQL GROUP BY analogy)
+
+summarize(sales, sales[customerid],"calcualtedcolumn",sum(sales[amount]))
+
+PART 2 — TOPN (like SQL ORDER BY LIMIT N)
+
+topn(10, summarize(sales, sales[customerid],"calculatedcolumn", sum(sales[amount])), [calculatedcolumn],desc)
+
+Meaning:
+Take the grouped table created by SUMMARIZE.
+Sort it by "CustSales" descending.
+Return only top 10 rows.
+
+Practice Questions
+
