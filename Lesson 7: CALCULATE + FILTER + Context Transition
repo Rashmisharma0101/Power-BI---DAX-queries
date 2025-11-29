@@ -122,8 +122,49 @@ VALUES(column) returns a one-column table containing each distinct value for tha
 VALUES(table) returns the distinct rows of the table.
 
 5. Sales for the Current Row's Product (Context Transition)
+calculate(sum(sales[amount]))
+
+Explanation
+What is the current row?
+
+If table visual is:
+
+| Product: A |
+| Product: B |
+
+Each row has an existing filter:
+
+Row 1 → Product = A
+Row 2 → Product = B
+
+Inside the row:
+
+CALCULATE enforces context transition.
+
+So the measure becomes:
+
+Row 1 → SUM(Sales Amount WHERE Product=A)
+Row 2 → SUM(Sales Amount WHERE Product=B)
+
+🎯 Learning
+
+Even though we wrote only:
+
+CALCULATE(SUM(Sales[Amount]))
 
 
+CALCULATE automatically reads the current values of columns in that row and converts them into filters.
+
+This is Context Transition.
+
+6. Sales for the Current Customer + Only Current Year
+
+= calculate(sum(sales[amount]), filter(all(sales), year(sales[date]) = year(today())))
+
+7. customers who NEVER purchased in last 60 days
+
+= calculate(distinctcount(sales[customerid]), filter(values(sales[customerid]),
+calculate(countrows(sales), datesinperiod(datetable[date], max(datetable[date]), -60, day)) = 0 ))
 
 
 
