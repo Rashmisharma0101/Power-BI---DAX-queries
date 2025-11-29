@@ -35,8 +35,11 @@ CALCULATE( SUM(Sales[Amount]), KEEPFILTERS(Top5) )
 2. Top 10 Customers Table
 topn(10, summarize(sales, sales[customerid], "calcol", sum(sales[amount])), [calcol], desc)
 
-3. Rank Customers based onn sales
-=calculate(sum(Sales[amount]), filter(sales[customerid]), rankx(sales[customerid], calculate(sum(sales[amount])), desc,dense)
+3. Rank Customers based on sales
+=rankx(values(sales[customerid]), calculate(sum(sales[amount])), desc,dense)
+
+# VALUES() is used when you want ranking respecting filters (table context of visual).
+✔ ALL() is used when you want ranking ignoring all filters.
 
 4. Top Product in Each Category
 
@@ -48,7 +51,13 @@ topn(5, summarize(sales, sales[customerid], "calcol", sum(sales[amount])), [calc
 =calculate(sum(sales[amount]), topn(3, summarize(sales, sales[productid], "calcol", sum(sales[amount])), [calcol], decs)
 
 7. Rank Products but Ignore Filters
-calculate(sum(product[productid]), filter(product[productid], calculate(sum(sales[amount])), rankx(all(sales[customerid], calculate(sum(sales[amount])), desc,dense)
+RANKX(
+    ALL(Product[ProductID]),                     -- 1. Table to iterate: all products, ignoring filters
+    CALCULATE( SUM(Sales[Amount]) ),             -- 2. Expression: Sales per product
+    ,                                            -- 3. No alternate expression
+    DESC,                                        -- 4. Higher sales = higher rank
+    DENSE                                        -- 5. No gaps in ranking
+)
 
 8. Create a table of top 5 sales per Region
 topn(5, summarize(sales, sales[Region], "calcol", sum(sales[amount])), [calcol], desc)
