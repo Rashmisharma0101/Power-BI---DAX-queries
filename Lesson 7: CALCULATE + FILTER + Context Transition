@@ -75,6 +75,31 @@ C 150
 calculate(sum(sales[amount]), filter(sales, sales[qty] > 10))
 
 4. Sales of a Selected Product Only
-calculate(sum(sales[amount]), filter
+=calculate(sum(sales[amount]), filter(products, product[productname]) ='computer') - You want ONLY “computer” always
+
+Values version - You want the slicer-selected product
+
+Sales_Selected_Product =
+CALCULATE(
+    SUM(Sales[Amount]),
+    VALUES(Products[ProductName])
+)
+
+5. Sales for TOP 10 Highest Sale Customers
+=calculate(sum(sales[amount]), topn(10, summarize(sales, sale[customer_id], 'custsales', sum(sales[amount])),
+[custsales], desc))  # outer sum  - final total sales for Top 10 customers combined.
+
+# You want a table result (Top 10 customers with their sales)
+Top10_Customers_Table =
+TOPN(
+    10,
+    SUMMARIZE(
+        Sales,
+        Sales[CustomerID],
+        "CustSales", SUM(Sales[Amount])
+    ),
+    [CustSales], DESC
+)
+
 
 
