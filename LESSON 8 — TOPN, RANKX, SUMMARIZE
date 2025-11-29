@@ -38,7 +38,8 @@ topn(10, summarize(sales, sales[customerid], "calcol", sum(sales[amount])), [cal
 3. Rank Customers based onn sales
 =calculate(sum(Sales[amount]), filter(sales[customerid]), rankx(sales[customerid], calculate(sum(sales[amount])), desc,dense)
 
-4.
+4. Top Product in Each Category
+
 
 5. Bottom 5 Customers By Sales
 topn(5, summarize(sales, sales[customerid], "calcol", sum(sales[amount])), [calcol], asc)
@@ -46,7 +47,8 @@ topn(5, summarize(sales, sales[customerid], "calcol", sum(sales[amount])), [calc
 6. Sales of Top 3 Products Only
 =calculate(sum(sales[amount]), topn(3, summarize(sales, sales[productid], "calcol", sum(sales[amount])), [calcol], decs)
 
-7. 
+7. Rank Products but Ignore Filters
+calculate(sum(product[productid]), filter(product[productid], calculate(sum(sales[amount])), rankx(all(sales[customerid], calculate(sum(sales[amount])), desc,dense)
 
 8. Create a table of top 5 sales per Region
 topn(5, summarize(sales, sales[Region], "calcol", sum(sales[amount])), [calcol], desc)
@@ -55,7 +57,7 @@ topn(5, summarize(sales, sales[Region], "calcol", sum(sales[amount])), [calcol],
 =calculate(sum(sales[amount]), filter(values(sales[customerid]), rankx(all(sales[customerid]),calculate(sum(sales[amount])),
 desc, dense) <=20))
 
-10. 
+10. Return only customers with sales > average customer sales
 
 
 Quick rules to remember before code
