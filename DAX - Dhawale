@@ -1,0 +1,7 @@
+Correct way to use CALENDAR() to create a Date Table
+Step 1 — Create a new calculated table
+Go to:
+Modeling → New Table
+in formula bar:
+DateTable =
+CALENDAR ( MIN ( SalesData[Date] ), MAX ( SalesData[Date] ) )
