@@ -1,4 +1,121 @@
 file name  - DAXpractice.pbix
+🟢 BASIC DAX PRACTICE (Foundations)
+🔹 Aggregations
+
+Create a measure to calculate Total Sales Amount.
+
+Create a measure for Total Number of Sales Transactions.
+
+Find Average Sales Amount per transaction.
+
+Calculate Total Sales by Product.
+
+Calculate Total Sales by Region.
+
+Show Total Sales by Employee.
+
+Count Distinct Products Sold.
+
+Count Distinct Employees who made sales.
+
+Find Maximum Sales Amount in a single transaction.
+
+Find Minimum Sales Amount.
+
+🔹 Simple Filters
+
+Total Sales for a selected Region only.
+
+Total Sales for a selected Product only.
+
+Total Sales for a selected Employee.
+
+Sales Amount only where Sales Amount > 10,000.
+
+Count of Sales only for a selected Product.
+
+🟡 INTERMEDIATE DAX PRACTICE (Most Interview-Relevant)
+🔹 CALCULATE & FILTER
+
+Total Sales for Region = "North".
+
+Total Sales excluding a specific Region.
+
+Total Sales for Products with Reviews.
+
+Total Sales for Products without Reviews.
+
+Total Sales handled by a specific Department.
+
+Total Sales by Employees reporting to a Manager.
+
+🔹 Percentages & Ratios
+
+% Contribution of each Product to Total Sales.
+
+% Contribution of each Region to Total Sales.
+
+% Contribution of each Employee to Total Sales.
+
+Sales Amount as % of overall company sales.
+
+🔹 Ranking
+
+Rank Products by Total Sales.
+
+Rank Employees by Sales Amount.
+
+Rank Regions by Sales Amount.
+
+Show Top 5 Products by Sales.
+
+Show Bottom 3 Regions by Sales.
+
+🔹 Relationships-based Logic (Very Important)
+
+Average Sales per Product.
+
+Average Sales per Region.
+
+Average Sales per Employee.
+
+Total Sales per Product Category (if Product Code implies category).
+
+Sales per Employee Department.
+
+🔹 Reviews + Sales Combined
+
+Total Sales for Products with rating ≥ 4.
+
+Average Review Score per Product.
+
+Total Sales for Products with below-average Reviews.
+
+Identify Products with high Sales but low Reviews.
+
+Count Number of Reviews per Product.
+
+🟠 ADVANCED-INTERMEDIATE (Bonus – Stretch Yourself)
+🔹 Context & ALL / ALLEXCEPT
+
+Total Sales ignoring Product filters.
+
+Total Sales ignoring Region filters.
+
+% Sales of Product within its Region only.
+
+% Sales of Employee within their Department.
+
+Rank Products within each Region.
+
+🔹 Time-based (if you add a Date table later)
+
+Total Sales YTD.
+
+Sales Previous Month.
+
+Month-over-Month Sales Growth %.
+----------------------------------------------------------------------------------------------------------------
 Total Sales for Products with Reviews.
 totalsalesreviewedproducts = CALCULATE([Totalsales], filter(products, countrows(RELATEDTABLE(reviews)) > 0))
 
