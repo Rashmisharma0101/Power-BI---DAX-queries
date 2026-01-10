@@ -1,0 +1,6 @@
+file name  - DAXpractice.pbix
+Total Sales for Products with Reviews.
+totalsalesreviewedproducts = CALCULATE([Totalsales], filter(products, countrows(RELATEDTABLE(reviews)) > 0))
+
+Total Sales by Employees reporting to a Manager. (managerID shud not be null)
+totalsalesreportingmanager = CALCULATE([Totalsales], filter(employee, not isblank (Employee[managerid])))
