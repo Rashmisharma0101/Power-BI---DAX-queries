@@ -1,0 +1,102 @@
+Using a bridge table restricts ranking to fact-driven entities, eliminating BLANK measures and simplifying DAX.
+If ranking feels complex → the model is wrong, not the DAX.
+Bridge tables fix models.
+
+🎯 Goal
+
+You want employee ranking to be as simple as product ranking
+→ i.e. a one-liner RANKX, no long defensive logic.
+
+🔴 Why Employee ranking was hard (recap in 1 line)
+
+Because the Employee table contains people with NO sales, but ranking should only consider sellers.
+
+So we change the model, not fight DAX.
+
+✅ The Bridge Table Idea (Core Concept)
+
+Instead of ranking over Employee (master list),
+we rank over Employees who actually sold something.
+
+That’s what a bridge table does.
+
+🧩 Step 1: Create the Bridge Table
+
+Create a new calculated table:
+
+EmployeeSalesBridge =
+SUMMARIZE(
+    Sales,
+    Sales[EmployeeID]
+)
+
+
+What this table contains:
+
+One row per Employee who has at least one sale
+
+No non-selling employees
+
+Automatically clean
+
+🧩 Step 2: Create Relationships
+Employee[EmployeeID] 1 ──── * EmployeeSalesBridge[EmployeeID]
+EmployeeSalesBridge[EmployeeID] 1 ──── * Sales[EmployeeID]
+
+
+👉 Direction: single (default)
+
+Now:
+
+Visuals use EmployeeSalesBridge
+
+Employees without sales cannot appear
+
+🧩 Step 3: Write the SIMPLE Rank (One-liner 😄)
+Rank Emp Sales =
+RANKX(
+    ALL ( EmployeeSalesBridge[EmployeeID] ),
+    [TotalSales],
+    ,
+    DESC,
+    DENSE
+)
+
+
+✅ That’s it.
+No FILTER, no ISBLANK, no CALCULATE gymnastics.
+
+The blank row appears because Power BI creates an “unknown member” when fact rows don’t match a dimension key. 
+This row participates in calculations unless explicitly filtered out.
+
+learning
+Why the Grand Total row always shows Rank = 1
+Key rule (memorize this):
+
+Measures are re-evaluated in the Grand Total context.
+
+In the Grand Total row:
+
+There is NO EmployeeID in context
+
+[TotalSales] = overall total
+
+RANKX compares one value with itself
+
+it can be removed by - hasonevalue function
+
+Rank Emp Sales =
+IF (
+    HASONEVALUE ( EmployeeSalesBridge[EmployeeID] ),
+    RANKX(
+        ALL ( EmployeeSalesBridge[EmployeeID] ),
+        [TotalSales],
+        ,
+        DESC,
+        DENSE
+    )
+)
+
+rows that have region od that onlly will be rranked
+-----------------HASONEVALUE() works only on columns, NOT on measures
+Result → Rank = 1
