@@ -100,3 +100,49 @@ IF (
 rows that have region od that onlly will be rranked
 -----------------HASONEVALUE() works only on columns, NOT on measures
 Result → Rank = 1
+
+Final Truth (No confusion, no tricks)
+
+For a Top-5 table visual, you MUST apply
+“Measure → is not blank” as a visual filter.
+
+There is no pure-DAX solution that:
+
+Shows only Top 5 rows
+
+Shows correct per-row values
+
+Shows correct Grand Total
+without either:
+
+a visual filter, or
+
+a separate Top-5 dimension table
+
+This is by design in Power BI.
+
+🧠 Why this is unavoidable (important concept)
+Power BI evaluation order:
+
+Visual rows are decided first (ProductID list)
+
+Measures are evaluated later
+
+Measures cannot delete rows
+
+They can only return values or BLANK
+
+So:
+
+To remove rows → visual filter
+
+To fix totals → SUMX
+
+To control row vs total logic → ISINSCOPE
+
+--------------------------------------------------------------------
+FILTER can only filter rows properly when the condition depends on columns, not measures
+
+sumtop4products = sumx(filter(all(products),rankx(all(Products), [Totalsales],,desc, dense) <= 4), [Totalsales])
+
+so give entire rankx expression here , instead of giving the measure name
