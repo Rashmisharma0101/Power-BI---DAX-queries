@@ -1,0 +1,8 @@
+Rank Product Within Category =
+RANKX (
+    ALLEXCEPT ( Products, Products[Category] ),
+    [Total Sales],
+    ,
+    DESC,
+    DENSE
+)
