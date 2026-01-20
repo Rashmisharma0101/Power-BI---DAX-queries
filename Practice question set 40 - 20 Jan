@@ -1,0 +1,325 @@
+🟢 BASIC DAX (Foundations) — Questions 1–12
+
+1. Total Sales (Overall)
+
+Calculate total sales across Sales_2024 and Sales_2025.
+
+📌 Concepts: SUM, multiple fact tables
+
+
+
+2. Total Quantity Sold
+
+Total quantity sold across all years.
+
+📌 Concepts: basic aggregation
+
+
+
+3. Total Sales by Year
+
+Show total sales for each year (2024 vs 2025).
+
+📌 Concepts: Calendar relationship, filter context
+
+
+
+4. Total Sales by Product
+
+Show total sales by ProductName.
+
+📌 Concepts: dimension → fact relationship
+
+
+
+5. Total Sales by Category
+
+Total sales grouped by Products[Category].
+
+📌 Concepts: grouping via dimension
+
+
+
+6. Total Sales by Customer
+
+Total sales per customer.
+
+📌 Concepts: customer dimension
+
+
+
+7. Total Sales by Store
+
+Total sales by store name.
+
+📌 Concepts: store dimension
+
+
+
+8. Average Unit Price Sold
+
+Calculate average unit price of sold products.
+
+📌 Concepts: AVERAGE, row context vs filter context
+
+
+
+9. Total Sales by Region (Customer Region)
+
+Total sales by Customers[Region].
+
+📌 Concepts: indirect filtering
+
+
+
+10. Total Sales by Store Region
+
+Total sales by Stores[Region].
+
+📌 Concepts: multiple dimensions
+
+
+
+11. Sales Count (Number of Transactions)
+
+Count number of sales rows.
+
+📌 Concepts: COUNT, COUNTROWS
+
+
+
+12. Distinct Products Sold
+
+Number of distinct products sold.
+
+📌 Concepts: DISTINCTCOUNT
+
+
+
+🟡 INTERMEDIATE DAX (Context Control) — Questions 13–28
+
+13. Total Sales (No Product Filter)
+
+Show total sales ignoring Product filters.
+
+📌 Concepts: ALL
+
+
+
+14. Total Sales (No Customer Filter)
+
+Show grand total sales ignoring customers.
+
+📌 Concepts: removing filters
+
+
+
+15. % Contribution of Each Product
+
+% of total sales contributed by each product.
+
+📌 Concepts: ratio measures, context removal
+
+
+
+16. % Sales by Category
+
+% contribution of each product category.
+
+📌 Concepts: DIVIDE, ALL
+
+
+
+17. % Sales of Product Within Its Category
+
+Product’s % share within its own category only.
+
+📌 Concepts: ALLEXCEPT
+
+
+
+18. Total Sales for Selected Year Only
+
+Force calculation to respect only selected year.
+
+📌 Concepts: filter propagation
+
+
+
+19. YoY Sales Growth
+
+Year-over-Year sales growth percentage.
+
+📌 Concepts: time intelligence
+
+
+
+20. Sales Difference Between 2024 and 2025
+
+Absolute sales difference.
+
+📌 Concepts: CALCULATE, filters
+
+
+
+21. Top 5 Products by Sales
+
+Identify top 5 products by total sales.
+
+📌 Concepts: RANKX, Top-N logic
+
+
+
+22. Top 5 Products Total Sales (Correct Grand Total)
+
+Grand total should sum only top 5, not all products.
+
+📌 Concepts: SUMX, virtual tables
+
+
+
+23. Bottom 5 Products by Sales
+
+Identify lowest-selling products.
+
+📌 Concepts: reverse ranking
+
+
+
+24. Customers with Zero Sales
+
+Identify customers who never made a purchase.
+
+📌 Concepts: ISBLANK, outer filtering
+
+
+
+25. Products Sold in 2024 but Not in 2025
+
+Identify discontinued products.
+
+📌 Concepts: EXCEPT
+
+
+
+26. Stores with Above-Average Sales
+
+Stores whose sales are above overall average.
+
+📌 Concepts: AVERAGEX
+
+
+
+27. Average Sales per Customer
+
+Average revenue per customer.
+
+📌 Concepts: iterator functions
+
+
+
+28. Running Total of Sales by Date
+
+Cumulative sales over time.
+
+📌 Concepts: DATESBETWEEN, running total
+
+
+
+🔵 ADVANCED DAX (Thinking Like a BI Pro) — Questions 29–40
+
+29. Rank Products by Sales (Overall)
+
+Rank all products by sales.
+
+📌 Concepts: RANKX
+
+
+
+30. Rank Products Within Each Category
+
+Rank products inside their category, not globally.
+
+📌 Concepts: partitioned ranking
+
+
+
+31. Rank Stores Within Region
+
+Rank stores within each store region.
+
+📌 Concepts: ALLEXCEPT
+
+
+
+32. % Sales of Store Within Its Region
+
+Store’s contribution % inside region.
+
+📌 Concepts: scoped percentage
+
+
+
+33. Customer Lifetime Value (CLV)
+
+Total sales per customer across all years.
+
+📌 Concepts: lifetime aggregation
+
+
+
+34. Customers Contributing Top 20% of Sales
+
+Identify high-value customers (Pareto analysis).
+
+📌 Concepts: cumulative ranking
+
+
+
+35. Month with Highest Sales
+
+Identify the best-performing month.
+
+📌 Concepts: max logic with time
+
+
+
+36. Product with Highest Avg Unit Price
+
+Product with highest average selling price.
+
+📌 Concepts: aggregation + ranking
+
+
+
+37. Sales per Transaction
+
+Average sales per transaction.
+
+📌 Concepts: division of measures
+
+
+
+38. Sales Share of New Products (2025 only)
+
+% of sales from products sold first time in 2025.
+
+📌 Concepts: advanced filtering
+
+
+
+39. Year-to-Date (YTD) Sales
+
+YTD sales using Calendar table.
+
+📌 Concepts: TOTALYTD
+
+
+
+40. Identify Seasonal Products
+
+Products whose sales spike in specific quarters.
+
+📌 Concepts: time analysis + comparison
+
+solutions in DAX PRACTICE 14 JAN FILE
